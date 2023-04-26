@@ -42,6 +42,7 @@ public class PagamentoController {
 		PagamentoDto dto = service.obterPorId(id);
 		return ResponseEntity.ok(dto);
 	}
+	
 	@PostMapping
     public ResponseEntity<PagamentoDto> cadastrar(@RequestBody @Valid PagamentoDto dto, UriComponentsBuilder uriBuilder) {
         PagamentoDto pagamento = service.criarPagamento(dto);
