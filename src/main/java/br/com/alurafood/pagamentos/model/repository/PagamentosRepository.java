@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.alurafood.pagamentos.model.Pagamento;
 
-public interface PagamentosRepositoy  extends JpaRepository<Pagamento, Long>{
+public interface PagamentosRepository  extends JpaRepository<Pagamento, Long>{
 
 }
