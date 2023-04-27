@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +30,11 @@ public class PagamentoController {
 	
 	@Autowired
 	private PagamentoService service;
+	
+    @GetMapping("/porta")
+    public String retornaPorta(@Value("${local.server.port}") String porta){
+        return String.format("Requisição respondida pela instância executando na porta %s", porta);
+    }
 	
 	@GetMapping
 	public Page<PagamentoDto> listar(@PageableDefault(size =10) Pageable paginacao){
