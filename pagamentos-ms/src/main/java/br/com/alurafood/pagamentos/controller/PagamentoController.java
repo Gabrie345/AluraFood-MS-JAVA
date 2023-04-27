@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alurafood.pagamentos.dto.PagamentoDto;
 import br.com.alurafood.pagamentos.service.PagamentoService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
 @RequestMapping("/pagamentos")
@@ -39,13 +40,11 @@ public class PagamentoController {
 	
 	@GetMapping
 	public Page<PagamentoDto> listar(@PageableDefault(size =10) Pageable paginacao){
-		
 		return service.obterTodos(paginacao);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<PagamentoDto> detalhar(@PathVariable @NotNull Long id) {
-		 
 		PagamentoDto dto = service.obterPorId(id);
 		return ResponseEntity.ok(dto);
 	}
@@ -71,6 +70,7 @@ public class PagamentoController {
     }
     
     @PatchMapping("/{id}/confirmar")
+    @CircuitBreaker(name = "atualizaPedido", fallbackMethod = "")
     public void confirmarPagamento(@PathVariable @NotNull Long id){
         service.confirmarPagamento(id);
     }
