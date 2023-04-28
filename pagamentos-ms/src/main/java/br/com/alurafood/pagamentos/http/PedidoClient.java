@@ -1,5 +1,4 @@
-package br.com.alurafood.pagamentos.htpp;
-
+package br.com.alurafood.pagamentos.http;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

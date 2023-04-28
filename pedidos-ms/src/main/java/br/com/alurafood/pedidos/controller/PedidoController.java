@@ -1,26 +1,18 @@
 package br.com.alurafood.pedidos.controller;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import br.com.alurafood.pedidos.dto.PedidoDto;
 import br.com.alurafood.pedidos.dto.StatusDto;
 import br.com.alurafood.pedidos.service.PedidoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -29,13 +21,6 @@ public class PedidoController {
         @Autowired
         private PedidoService service;
 
-        
-        @GetMapping("/porta")
-        public String retornaPorta(@Value("${local.server.port}") String porta){
-            return String.format("Requisição respondida pela instância executando na porta %s", porta);
-        }
-        
-        
         @GetMapping()
         public List<PedidoDto> listarTodos() {
             return service.obterTodos();
@@ -46,6 +31,11 @@ public class PedidoController {
             PedidoDto dto = service.obterPorId(id);
 
             return  ResponseEntity.ok(dto);
+        }
+
+        @GetMapping("/porta")
+        public String retornaPorta(@Value("${local.server.port}") String porta){
+            return String.format("Requisição respondida pela instância executando na porta %s", porta);
         }
 
         @PostMapping()
@@ -73,6 +63,4 @@ public class PedidoController {
             return ResponseEntity.ok().build();
 
         }
-
-     
 }
